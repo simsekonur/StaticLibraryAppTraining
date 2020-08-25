@@ -1,0 +1,16 @@
+g++ -c add.cpp
+g++ -c sub.cpp
+ar rs libbasic.a add.o sub.o
+touch headers.hpp
+
+Only header and library will be there
+Create runner.cpp to test it!
+g++ -c runner.cpp  ----> runner.o
+
+Link the object file with library
+and have a executable file 
+
+g++ -o exeFile runner.o libbasic.a
+
+
+

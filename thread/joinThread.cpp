@@ -19,6 +19,9 @@ int main(void){
 
     //When I say, t1.join what happens?
     t1.join();
+    // The time when the function is called 
+    // is just after t1.join().
+    // It executes the functions job.
     cout << "I finished the thread jobs\n";
     cout << "Done the main!\n";
 

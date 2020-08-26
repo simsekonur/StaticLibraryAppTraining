@@ -79,6 +79,10 @@ int main (){
     auto howMuch2 = duration_cast<microseconds>(endTime2 - startTime2);
     cout << "With a thread: "<< howMuch2.count()/ 10000000 << endl ;
 
+    //Could you see the difference ? If you use threads all of the jobs are 
+    // done in parallel. In other words , when we are dealing with oddSum
+    //functions execution time, calculation for even sum is also started to
+    // being done.Therefore, the total execution time has decreased by half.
 
 
 

@@ -12,5 +12,11 @@ and have a executable file
 
 g++ -o exeFile runner.o libbasic.a
 
+/////////////////////////////////////
 
+1) Object codes 
+2) Library creation
+3) header
+4) Object code of runner 
+5) Link 4 with library 
 

@@ -8,7 +8,7 @@ class ExecTimer{
         std::string funcName;
         void Run();
     public :
-        ExecTimer();
+        ExecTimer();//it will be empty 
         int StartUp();
         int ShutDown();
         void Begin(std::string fn);

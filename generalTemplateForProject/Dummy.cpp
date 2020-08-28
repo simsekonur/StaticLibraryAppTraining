@@ -4,10 +4,7 @@
 
 Dummy::Dummy(){
 
-    
     this->execTimer.StartUp();
-
-    
 
 }
 
@@ -18,7 +15,6 @@ void Dummy::doJob(){
         result +=i;
     }
     execTimer.End(); 
-    
 
 }
 

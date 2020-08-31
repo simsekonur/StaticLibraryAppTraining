@@ -42,6 +42,7 @@ void*  FakeRun(void * arg){
     ExecTimer execTimer;
  
     execTimer.Run();
+    return NULL;
     
 } 
  
@@ -102,7 +103,7 @@ int ExecTimer::ShutDown(){
     
     
     
-    status = mq_unlink("my_queue");
+    status = mq_unlink(QUEUE_NAME);
     return 0;
 
 }
@@ -141,6 +142,7 @@ void ExecTimer::End(const char * fn ){
     int retVal = mq_send(this->mq,(const char *)&myExecResult,sizeof(myExecResult),0);
    // cout << "sendden geli,yor" << retVal<<endl ;
    // perror(QUEUE_NAME);
+   
     
 }
 

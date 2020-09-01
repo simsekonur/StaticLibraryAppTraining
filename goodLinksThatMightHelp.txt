@@ -1,1 +1,2 @@
 https://stackoverflow.com/questions/35555120/c-mqueue-doesnt-send-or-receive-the-entire-message
+https://stackoverflow.com/questions/10666789/error-bad-address-when-reading-from-message-queue-on-linux

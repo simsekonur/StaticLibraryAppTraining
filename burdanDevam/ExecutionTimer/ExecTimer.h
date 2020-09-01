@@ -26,7 +26,8 @@ class ExecTimer{
 
         //Job related to message queue
         int status;
-        mqd_t mq;
+        mqd_t mq1;
+        mqd_t mq2;
         struct mq_attr attr;  
 
         /////////////////////////

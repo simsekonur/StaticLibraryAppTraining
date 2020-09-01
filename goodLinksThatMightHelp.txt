@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/35555120/c-mqueue-doesnt-send-or-receive-the-entire-message

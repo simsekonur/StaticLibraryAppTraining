@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include<thread>
 #include<string.h>
-
+#define QUEUENAME "/testmessage"
 
 using namespace std;
 struct ExecResult {
@@ -17,22 +17,22 @@ struct ExecResult {
 int main(void){
     struct mq_attr attr;
     attr.mq_flags = 0;
-    attr.mq_maxmsg = 129;
-    attr.mq_msgsize = 1024;
+    attr.mq_maxmsg = 10;
+    attr.mq_msgsize = 200;
     attr.mq_curmsgs = 0;
 
-    mqd_t mq = mq_open("/mq",O_RDWR | O_CREAT, 0666, &attr);
+    mqd_t mq = mq_open(QUEUENAME, O_CREAT|O_RDWR , 0644,&attr);
     // returns -1 on error 
-
+    perror(QUEUENAME);
     if(mq!=-1){
         cout << "Open is  succesfull\n";
 
     }
     else {
-        cout << "Open is not   succesfull\n";
+        cout << "Open is not succesfull\n";
     }
     
-    strcpy(myExecResult.funcName,"default");
+    strcpy(myExecResult.funcName,"delt");
 
     myExecResult.id = 2;
 
@@ -48,8 +48,8 @@ int main(void){
         cout << "Send is not succesfull\n";
     }
 
-
-    int recVal = mq_receive(mq,(char *)&myExecResult,sizeof(myExecResult),NULL);
+    
+    int recVal = mq_receive(mq,reinterpret_cast<char *>(&myExecResult),sizeof(myExecResult),NULL);
     cout << recVal;
     perror("/mq");
     

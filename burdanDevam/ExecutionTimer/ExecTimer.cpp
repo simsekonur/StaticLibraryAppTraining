@@ -79,7 +79,7 @@ int ExecTimer::StartUp(){
     attr.mq_maxmsg = 129;
     attr.mq_msgsize = MAX_SIZE;
     attr.mq_curmsgs = 0;
-    this->mq = mq_open(QUEUE_NAME,O_CREAT | O_RDWR |O_NONBLOCK , 0644, &attr);
+    this->mq = mq_open(QUEUE_NAME,O_CREAT | O_RDWR , 0644, &attr);
     cout << "Opendan" << this->mq<<endl;
     //perror(QUEUE_NAME);
 

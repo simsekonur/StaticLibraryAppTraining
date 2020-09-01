@@ -79,7 +79,7 @@ int ExecTimer::StartUp(){
     attr.mq_maxmsg = 129;
     attr.mq_msgsize = MAX_SIZE;
     attr.mq_curmsgs = 0;
-    this->mq = mq_open(QUEUE_NAME,O_CREAT | O_RDWR, 0644, &attr);
+    this->mq = mq_open(QUEUE_NAME,O_CREAT | O_RDWR |O_NONBLOCK , 0644, &attr);
     cout << "Opendan" << this->mq<<endl;
     //perror(QUEUE_NAME);
 
@@ -144,16 +144,16 @@ void ExecTimer::End(const char * fn ){
     
 
     //just for trying,working fine
-    //cout << results.fn << " : " << results.execTime<< endl ;
+   // cout << results.fn << " : " << results.execTime<< endl ;
     cout << "Sendi deniycez\n";
     const char * tmp = reinterpret_cast<const char*>(&results);
-    int retVal = mq_send(this->mq,tmp,sizeof(results),1);
+    int retVal = mq_send(this->mq,tmp,sizeof(results),0);
     this->key = true ;
-    cout << "Senden cikar umarim\n";
-    cout << retVal << endl;
     
-    //cout << "sendden geli,yor" << retVal<<endl ;
-    //perror(QUEUE_NAME);
+
+    
+    cout << "sendden ciktik" << retVal<<endl ;
+    perror(QUEUE_NAME);
     cout << "Endden cikiyor\n";
    
     

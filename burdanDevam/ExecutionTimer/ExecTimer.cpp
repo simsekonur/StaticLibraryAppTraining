@@ -19,10 +19,10 @@ using namespace std;
 
 void ExecTimer::Run(){
     cout << "Run'a geldi " << key << endl ;
-    while(1){
+    while(key){
         if(key){// in only this condition,mq_receive
             cout << "Loop un icindeki ife girdi\n";
-            int retVal = mq_receive(this->mq,(char *)&this->results ,sizeof(this->results),NULL);
+            int retVal = mq_receive(this->mq2,(char *)&this->results ,sizeof(this->results),NULL);
             if (retVal!=-1){
                 cout << this->results.fn << " : " << this->results.execTime<< endl ;
             }else {
@@ -34,10 +34,8 @@ void ExecTimer::Run(){
 
         // mq_receive 
 
-        
+   
     }
-    
-    
  
 }
 
@@ -78,8 +76,9 @@ int ExecTimer::StartUp(){
     attr.mq_maxmsg = 129;
     attr.mq_msgsize = MAX_SIZE;
     attr.mq_curmsgs = 0;
-    this->mq = mq_open(QUEUE_NAME,O_CREAT | O_RDWR , 0644, &attr);
-    cout << "mq_opendan" << this->mq<<endl;
+    this->mq1 = mq_open(QUEUE_NAME,O_CREAT | O_RDWR , 0666, NULL);
+    this->mq2 = mq_open(QUEUE_NAME,O_CREAT | O_RDWR , 0666, &attr);
+    cout << "mq_opendan" << this->mq1 << this->mq2<<endl;
     //perror(QUEUE_NAME);
 
      // constructors jobs 
@@ -146,7 +145,7 @@ void ExecTimer::End(const char * fn ){
    // cout << results.fn << " : " << results.execTime<< endl ;
     cout << "Sendi deniycez\n";
     const char * tmp = reinterpret_cast<const char*>(&results);
-    int retVal = mq_send(this->mq,tmp,sizeof(results),0);
+    int retVal = mq_send(this->mq1,tmp,sizeof(results),0);
     cout << "Sendden cik artik\n";
     this->key = true ;
     

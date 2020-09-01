@@ -21,7 +21,7 @@ void ExecTimer::Run(){
     cout << "Run'a geldi " << key << endl ;
     while(1){
         if(key){// in only this condition,mq_receive
-
+            cout << "Loop un icindeki ife girdi\n";
             int retVal = mq_receive(this->mq,(char *)&this->results ,sizeof(this->results),NULL);
             if (retVal!=-1){
                 cout << this->results.fn << " : " << this->results.execTime<< endl ;
@@ -33,11 +33,10 @@ void ExecTimer::Run(){
         }
 
         // mq_receive 
-       
-    
+
         
     }
-    cout << "Rundan cikiyor\n";
+    
     
  
 }
@@ -80,7 +79,7 @@ int ExecTimer::StartUp(){
     attr.mq_msgsize = MAX_SIZE;
     attr.mq_curmsgs = 0;
     this->mq = mq_open(QUEUE_NAME,O_CREAT | O_RDWR , 0644, &attr);
-    cout << "Opendan" << this->mq<<endl;
+    cout << "mq_opendan" << this->mq<<endl;
     //perror(QUEUE_NAME);
 
      // constructors jobs 
@@ -148,6 +147,7 @@ void ExecTimer::End(const char * fn ){
     cout << "Sendi deniycez\n";
     const char * tmp = reinterpret_cast<const char*>(&results);
     int retVal = mq_send(this->mq,tmp,sizeof(results),0);
+    cout << "Sendden cik artik\n";
     this->key = true ;
     
 

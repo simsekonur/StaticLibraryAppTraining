@@ -19,18 +19,18 @@ using namespace std;
 
 void ExecTimer::Run(){
     cout << "Run'a geldi " << key << endl ;
-    while(key){
-        if(key){// in only this condition,mq_receive
-            cout << "Loop un icindeki ife girdi\n";
+    while(1){
+       // if(key){// in only this condition,mq_receive
+            
             int retVal = mq_receive(this->mq2,(char *)&this->results ,sizeof(this->results),NULL);
-            if (retVal!=-1){
+            if (retVal!=-1){//if it is succesfull
                 cout << this->results.fn << " : " << this->results.execTime<< endl ;
             }else {
+                //cout << "receive hata:"<<retVal<<endl;
             
-            
-               //perror(QUEUE_NAME);
+              // perror(QUEUE_NAME);
             }
-        }
+        //}
 
         // mq_receive 
 
@@ -148,13 +148,12 @@ void ExecTimer::End(const char * fn ){
     int retVal = mq_send(this->mq1,tmp,sizeof(results),0);
     cout << "Sendden cik artik\n";
     this->key = true ;
-    
+     
 
     
     cout << "sendden ciktik" << retVal<<endl ;
-    perror(QUEUE_NAME);
-    cout << "Endden cikiyor\n";
+    //perror(QUEUE_NAME);
+    cout << "Endden cikti\n";
    
     
 }
-

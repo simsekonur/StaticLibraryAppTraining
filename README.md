@@ -1,5 +1,8 @@
 # StaticLibraryAppTraining
 
+# Use version system such as ExecutionTimerV1.x or ExecutionTimerV2
+
+
 
 We can create two message queues one for sending one for receiving 
 

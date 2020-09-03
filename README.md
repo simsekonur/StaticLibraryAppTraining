@@ -4,7 +4,7 @@
 
 
 
-We can create two message queues one for sending one for receiving 
+
 
 Instead of mq_open ,mq_receive ,mq_send we can use mgssnd etc.
 Link is : https://pubs.opengroup.org/onlinepubs/009695399/functions/msgsnd.html
@@ -23,3 +23,6 @@ https://pubs.opengroup.org/onlinepubs/009695399/functions/msgrcv.html
 
 
 Version 3 is the version with mgssnd 
+
+
+Two message queues one for message char[], and one for long exeTime

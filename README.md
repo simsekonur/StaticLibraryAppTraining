@@ -20,3 +20,6 @@ https://www.tutorialspoint.com/ipc-using-message-queues
 Manual for one of them :
 
 https://pubs.opengroup.org/onlinepubs/009695399/functions/msgrcv.html
+
+
+Version 3 is the version with mgssnd 

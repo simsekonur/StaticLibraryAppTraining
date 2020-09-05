@@ -6,93 +6,74 @@
 #include <string.h>
 #include "ExecTimer.h"
 #include "ExecResult.h"
-
+#define QUEUENAME "/mqName6"
 using namespace std;
+
 mqd_t ExecTimer::mq = (mqd_t)-1;
-const char*ExecTimer::mqName = "/mqName2";
-const char*ExecTimer::threadName = "threadName";
-int msgsize = sizeof(myExecResult*);
+//const char * ExecTimer::mqName = "/mqName5";
 
 void* ExecTimer::Run(void * arg){
     while(true){
-        myExecResult * results = NULL;
-        unsigned int msg_prio;
-        int res = mq_receive(mq,reinterpret_cast<char *>(&results),msgsize,&msg_prio);
-    	if (res == -1) {
-    		cout << "mq_receive not successful\n";
+		myExecResult * results = NULL;
+		unsigned int msg_prio;
+
+
+		int res = mq_receive(mq,reinterpret_cast<char *>(&results),sizeof(results),&msg_prio);
+		if (res == -1) {
+
+    		//cout << "mq_receive not successful\n";
     	} else {
-    		cout << "mq_receive successful\n";
-    		cout << results->funcName << " " << results->y;
+
+
+    		cout << results->funcName << " " << results->difference<<endl;
 //    		delete(results);
     	}
-    }
+
+	}
 }
  
-//ExecTimer::ExecTimer(){
-//}
+
 
 ExecTimer::~ExecTimer(){
 	ShutDown();
 }
 
 int ExecTimer::StartUp(){
-	mq_attr attr2;
-    
-    attr2.mq_flags = 0;
-    attr2.mq_maxmsg = 10;
-    attr2.mq_msgsize = msgsize;
-    this->mq = mq_open(mqName,O_CREAT | O_RDWR , 0, &attr2);
-    
-    if (this->mq != -1)
-        cout << "open-mq successful\n";
-    else {
-        cout << "open-mq is not successful";
-        return 0;
-    }
 
-	if (mq_unlink(mqName) == -1)
-		return 1;
-	
-	if (pthread_attr_init(&attr) != 0)
-		return 1;
-    
-    int retVal = pthread_create(&this->newThread,&attr,Run,NULL);
-    if (retVal==0)
-        cout << "Open-thread is succesfull\n";
-    else
-        cout << "Open-thread is not succesfull\n";
-    
-    return 0;
+	mq_attr attr2;
+	attr2.mq_flags =0 ;
+	attr2.mq_msgsize = sizeof(myExecResult *);
+	attr2.mq_maxmsg = 10;
+	this->mq = mq_open(QUEUENAME ,O_CREAT|O_RDWR,0,&attr2);
+
+	int res = pthread_create(&this->newThread,NULL,Run,NULL);
+	return res;
 
 }
 
 int ExecTimer::ShutDown(){
-    if (mq_close(mq) == -1)
-        cout << "mq_closesuccessful\n";
-    else
-        cout << "mq_close is not successful\n";
+	int res1=mq_close(this->mq);
+	int res2=pthread_cancel(this->newThread);
 
-    if(pthread_cancel(newThread) != -1)
-        cout << "thread join successful\n";
-    else 
-        cout << "thread join is not successful\n";
+	return res2;
+}
+void ExecTimer::Begin(){
+	clock_t beginT = clock();
+	this->beginTime = (long)beginT;
 
-	return 0;
 }
 
+void ExecTimer::End(const char * fn){
+	clock_t endT = clock();
 
-void ExecTimer::Send(){
-	myExecResult *results = new myExecResult();
-	strcpy(results->funcName,"default");
-	results->difference = 2;
-	results->x = 10;
-	results->y = 25;
-	int res = mq_send(mq, reinterpret_cast<char*>(&results), msgsize, 0);
-	if (res == -1) {
-		cout << "mq_send not successful\n";
-	} else {
-		cout << "mq_send successful\n";
-	}
+	myExecResult * results = new myExecResult();
+	strcpy(results->funcName,fn);
+	results->difference = (long)endT -this->beginTime;
+
+	int res = mq_send(this->mq,reinterpret_cast<char *>(&results),sizeof(results),0);
+
+
+	
 }
 
 void ExecTimer::Wait(){

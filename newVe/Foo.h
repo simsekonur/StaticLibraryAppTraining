@@ -15,7 +15,7 @@ class Foo{
     public :
         Foo();
         ~Foo();
-        static void  doJobFoo();
+         void  doJobFoo();
         void createThread();
         void cancelThread();
         static void * Run (void * arg );

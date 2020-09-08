@@ -7,43 +7,38 @@
 
 #include<iostream>
 #include "FooAnother.h"
+#include <unistd.h>
 
-myExecResult * FooAnother::resultsFromFoo = NULL;
-//mqd_t ExecTimer::mq = (mqd_t)-1;
-void FooAnother::createThread(){
 
-    int res = pthread_create(&this->threadFoo,NULL,Run,NULL);
-    // check res
-
+void FooAnother::wait(){
+	pthread_join(this->threadFoo2,NULL);
 }
-void FooAnother::cancelThread(){
-    pthread_cancel(this->threadFoo);
-}
-
 void * FooAnother::Run(void * arg){
 
     while(true){
-
         //int mq_send(mqd_t __mqdes,
         //const char *__msg_ptr, size_t __msg_len, unsigned int __msg_prio)
+    	FooAnother * ptr = (FooAnother *)arg;
+    		while(true){
+    			ptr->doJobFoo2();
+    			ptr->doJobFromAnother();
 
+    		}
+    		return NULL;
     }
-
-
 }
 
 
 FooAnother::FooAnother(){
     this->execTimer.StartUp();
-    this->createThread();
-
-
+    int res = pthread_create(&this->threadFoo2,NULL,FooAnother::Run,this);
 
 }
 
 FooAnother::~FooAnother(){
     this->execTimer.ShutDown();
-    this->cancelThread();
+    pthread_cancel(this->threadFoo2);
+
 }
 void FooAnother::doJobFoo2(){
     execTimer.Begin();
@@ -55,7 +50,16 @@ void FooAnother::doJobFoo2(){
 
     }
     execTimer.End(__func__);
-    std::cout << "Tamamen dummy\n";
 
+}
+void FooAnother::doJobFromAnother(){
+	  execTimer.Begin();
+	    int t = 0 ;
+
+	    for (int i = 0; i< 100000;i++){
+	        t+=i;
+
+	    }
+	    execTimer.End(__func__);
 
 }

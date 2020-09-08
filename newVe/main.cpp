@@ -1,13 +1,14 @@
 // main
 #include "Dummy.h"
 #include "Foo.h"
-//#include "FooAnother.h"
+#include "FooAnother.h"
 /************
  *
  * Compilation :g++ main.cpp ExecTimer.cpp Dummy.cpp -lpthread -lrt
  ************ */
 
 int main(void){
+
 	/*Dummy dummy;
 	dummy.doJob();
 	dummy.doJob2();
@@ -21,9 +22,13 @@ int main(void){
 	dummy.doJob10();
 	dummy.doJob11();*/
 	Foo foo ;
-	foo.doJobFoo();
+	/*foo.doJobFoo();
+	foo.doJobFromFoo();*/
 
-	//FooAnother fooAnother;
-	//fooAnother.doJobFoo2();
+	FooAnother fooAnother;
+
+
+	foo.wait();
+	fooAnother.wait();
 	return 0;
 } 

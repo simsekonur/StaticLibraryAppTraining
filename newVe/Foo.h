@@ -3,22 +3,26 @@
 
 
 #include"ExecTimer.h"
-typedef void * (*THREADFUNCPTR)(void *);
+
 
 class Foo{
     private :
         ExecTimer execTimer;
         pthread_t threadFoo; 
 
-        static myExecResult * resultsFromFoo;
+
 
     public :
         Foo();
         ~Foo();
-         void  doJobFoo();
-        void createThread();
-        void cancelThread();
+
+        void  doJobFoo();
+        void doJobFromFoo();
+
+
         static void * Run (void * arg );
+        void wait();
+
 
 
 };

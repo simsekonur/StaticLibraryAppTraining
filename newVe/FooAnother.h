@@ -5,9 +5,7 @@
 class FooAnother {
 private :
         ExecTimer execTimer;
-        pthread_t threadFoo;
-
-        static myExecResult * resultsFromFoo;
+        pthread_t threadFoo2;
 
     public :
         FooAnother();
@@ -15,8 +13,10 @@ private :
         void doJobFoo2();
         void createThread();
         void cancelThread();
+        void doJobFromAnother();
         static void * Run(void *);
 
+        void wait();
 
 };
 

@@ -1,4 +1,5 @@
-main.o: ../main.cpp ../Dummy.h ../ExecTimer.h ../ExecResult.h ../Foo.h
+main.o: ../main.cpp ../Dummy.h ../ExecTimer.h ../ExecResult.h ../Foo.h \
+ ../FooAnother.h
 
 ../Dummy.h:
 
@@ -7,3 +8,5 @@ main.o: ../main.cpp ../Dummy.h ../ExecTimer.h ../ExecResult.h ../Foo.h
 ../ExecResult.h:
 
 ../Foo.h:
+
+../FooAnother.h:

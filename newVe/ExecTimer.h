@@ -14,7 +14,7 @@ class ExecTimer{
         pthread_attr_t attr;
 		static mqd_t mq;
 		static size_t size;
-	
+
 		static const char* mqName;
 		static const char* threadName;
         
@@ -22,7 +22,7 @@ class ExecTimer{
     public:
 //        ExecTimer();
 		~ExecTimer();
-        mqd_t getMq();
+
         int StartUp();
         int ShutDown();
 		void Begin();

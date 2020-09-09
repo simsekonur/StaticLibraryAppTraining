@@ -32,8 +32,7 @@ void* ExecTimer::Run(void * arg){
     }
 }
  
-//ExecTimer::ExecTimer(){
-//}
+
 
 
 

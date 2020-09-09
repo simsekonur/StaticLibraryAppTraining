@@ -19,11 +19,13 @@ void * FooAnother::Run(void * arg){
         //int mq_send(mqd_t __mqdes,
         //const char *__msg_ptr, size_t __msg_len, unsigned int __msg_prio)
     	FooAnother * ptr = (FooAnother *)arg;
-    		while(true){
+    		//while(true){
+
     			ptr->doJobFoo2();
+
     			ptr->doJobFromAnother();
 
-    		}
+    		//}
     		return NULL;
     }
 }
@@ -44,23 +46,13 @@ FooAnother::~FooAnother(){
 void FooAnother::doJobFoo2(){
     execTimer2->Begin();
 
-    int t = 0 ;
-
-    for (int i = 0; i< 100000;i++){
-        t+=i;
-
-    }
+    sleep(15);
     execTimer2->End(__func__);
 
 }
 void FooAnother::doJobFromAnother(){
 	  execTimer2->Begin();
-	    int t = 0 ;
-
-	    for (int i = 0; i< 100000;i++){
-	        t+=i;
-
-	    }
+	    sleep(20);
 	    execTimer2->End(__func__);
 
 }

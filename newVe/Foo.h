@@ -7,7 +7,7 @@
 
 class Foo{
     private :
-        ExecTimer execTimer;
+        ExecTimer *execTimer;
         pthread_t threadFoo; 
 
 

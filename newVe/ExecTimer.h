@@ -17,11 +17,14 @@ class ExecTimer{
 
 		static const char* mqName;
 		static const char* threadName;
+
+		ExecTimer();
         
 		
     public:
-//        ExecTimer();
+
 		~ExecTimer();
+
 
         int StartUp();
         int ShutDown();
@@ -30,5 +33,6 @@ class ExecTimer{
 		void End(const char * fn);
 		void Wait();
         static void* Run(void * arg);
+        static ExecTimer * getInstance();
 };
 #endif 

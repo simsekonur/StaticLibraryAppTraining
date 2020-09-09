@@ -1,12 +1,10 @@
-main.o: ../main.cpp ../Dummy.h ../ExecTimer.h ../ExecResult.h ../Foo.h \
+main.o: ../main.cpp ../Foo.h ../ExecTimer.h ../ExecResult.h \
  ../FooAnother.h
 
-../Dummy.h:
+../Foo.h:
 
 ../ExecTimer.h:
 
 ../ExecResult.h:
-
-../Foo.h:
 
 ../FooAnother.h:

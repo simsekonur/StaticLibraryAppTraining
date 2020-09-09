@@ -30,18 +30,19 @@ void * FooAnother::Run(void * arg){
 
 
 FooAnother::FooAnother(){
-    this->execTimer.StartUp();
+	this->execTimer2 = ExecTimer::getInstance();
+   // this->execTimer2->StartUp();
     int res = pthread_create(&this->threadFoo2,NULL,FooAnother::Run,this);
 
 }
 
 FooAnother::~FooAnother(){
-    this->execTimer.ShutDown();
+    this->execTimer2->ShutDown();
     pthread_cancel(this->threadFoo2);
 
 }
 void FooAnother::doJobFoo2(){
-    execTimer.Begin();
+    execTimer2->Begin();
 
     int t = 0 ;
 
@@ -49,17 +50,17 @@ void FooAnother::doJobFoo2(){
         t+=i;
 
     }
-    execTimer.End(__func__);
+    execTimer2->End(__func__);
 
 }
 void FooAnother::doJobFromAnother(){
-	  execTimer.Begin();
+	  execTimer2->Begin();
 	    int t = 0 ;
 
 	    for (int i = 0; i< 100000;i++){
 	        t+=i;
 
 	    }
-	    execTimer.End(__func__);
+	    execTimer2->End(__func__);
 
 }

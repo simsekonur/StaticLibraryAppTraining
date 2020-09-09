@@ -10,7 +10,8 @@ void Foo::wait(){
 }
 Foo::Foo(){
 	cout << "Foo constructor\n";
-	this->execTimer.StartUp();
+	this->execTimer =ExecTimer::getInstance();
+	//this->execTimer->StartUp();
 	int res = pthread_create(&this->threadFoo,NULL,&Foo::Run,this);
 	cout << "Foo const exit\n";
 }
@@ -28,11 +29,11 @@ void *Foo::Run(void *arg){
 }
 
 Foo::~Foo(){
-    this->execTimer.ShutDown();
+    this->execTimer->ShutDown();
     pthread_cancel(this->threadFoo);
 }
 void Foo::doJobFoo(){
-    execTimer.Begin();
+    execTimer->Begin();
 
     int t = 0 ;
 
@@ -40,11 +41,11 @@ void Foo::doJobFoo(){
         t+=i;
 
     }
-    execTimer.End(__func__);
+    execTimer->End(__func__);
 
 }   
 void Foo::doJobFromFoo(){
-	execTimer.Begin();
+	execTimer->Begin();
 
 	    int t = 0 ;
 
@@ -52,6 +53,6 @@ void Foo::doJobFromFoo(){
 	        t+=i;
 
 	    }
-	    execTimer.End(__func__);
+	    execTimer->End(__func__);
 
 }

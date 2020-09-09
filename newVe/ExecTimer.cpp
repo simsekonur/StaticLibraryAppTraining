@@ -9,7 +9,7 @@
 
 using namespace std;
 mqd_t ExecTimer::mq = (mqd_t)-1;
-const char*ExecTimer::mqName = "/mqNamee1";
+const char*ExecTimer::mqName = "/mqNamee2";
 const char*ExecTimer::threadName = "threadName";
 int msgsize = sizeof(myExecResult*);
 
@@ -27,13 +27,20 @@ void* ExecTimer::Run(void * arg){
     			cout << results->funcName << " " << results->difference<<endl;
     		}
 
-//    		delete(results);
+
     	}
     }
 }
  
 
+ExecTimer::ExecTimer(){}
 
+ExecTimer * ExecTimer::getInstance(){
+
+	static ExecTimer et;
+
+	return &et;
+}
 
 
 ExecTimer::~ExecTimer(){
@@ -41,6 +48,7 @@ ExecTimer::~ExecTimer(){
 }
 
 int ExecTimer::StartUp(){
+
 	mq_attr attr2;
     
     attr2.mq_flags = 0;
@@ -92,8 +100,6 @@ void ExecTimer::Begin(){
 	this->beginTime = (long)beginT;
 	//this->setTime(beginT);
 
-
-
 }
 
 void ExecTimer::End(const char * fn){
@@ -103,7 +109,6 @@ void ExecTimer::End(const char * fn){
 	clock_t endT = clock();
 	strcpy(results->funcName,fn);
 	results->difference = (long)endT - beginTime;
-
 
 	int res = mq_send(mq, reinterpret_cast<char*>(&results), msgsize, 0);
 	if (res == -1) {

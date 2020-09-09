@@ -13,22 +13,12 @@
 class Dummy{
     private:
         int i;
-        ExecTimer execTimer;
+        ExecTimer *execTimer;
     public:
         Dummy();
         ~Dummy();
         void doJob();
         void doJob2();
-        void doJob3();
-        void doJob4();
-        void doJob5();
-        void doJob6();
-        void doJob7();
-        void doJob8();
-        void doJob9();
-        void doJob10();
-        void doJob11();
-        void doJob12();
 
 
 

@@ -4,7 +4,7 @@
 #include"ExecTimer.h"
 class FooAnother {
 private :
-        ExecTimer execTimer;
+        ExecTimer * execTimer2;
         pthread_t threadFoo2;
 
     public :

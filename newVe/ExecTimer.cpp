@@ -5,7 +5,7 @@
 #include <iostream>
 #include <string.h>
 #include "ExecTimer.h"
-
+#include <vector>
 
 using namespace std;
 mqd_t ExecTimer::mq = (mqd_t)-1;
@@ -97,6 +97,7 @@ void ExecTimer::End(const char * fn){
 	results->difference = (long)endT - beginTime;
 
 	int res = mq_send(mq, reinterpret_cast<char*>(&results), msgsize, 0);
+
 
 
 }

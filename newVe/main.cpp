@@ -1,5 +1,6 @@
 #include "Foo.h"
 #include "FooAnother.h"
+#include<iostream>
 /************
  *
  * Compilation :g++ main.cpp ExecTimer.cpp Dummy.cpp -lpthread -lrt
@@ -20,5 +21,6 @@ int main(void){
 
 	foo.wait();
 	fooAnother.wait();
+
 	return 0;
 } 

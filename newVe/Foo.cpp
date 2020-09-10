@@ -11,7 +11,7 @@ void Foo::wait(){
 Foo::Foo(){
 
 	this->execTimer =ExecTimer::getInstance();
-	//this->execTimer->StartUp();
+
 	int res = pthread_create(&this->threadFoo,NULL,&Foo::Run,this);
 
 }

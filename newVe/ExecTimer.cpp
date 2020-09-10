@@ -20,9 +20,9 @@ void* ExecTimer::Run(void * arg){
         unsigned int msg_prio;
         int res = mq_receive(mq,reinterpret_cast<char *>(&results),msgsize,&msg_prio);
     	if (res == -1) {
-    		//cout << "mq_receive not successful\n";
+
     	} else {
-    	//	cout << "mq_receive successful\n";
+
     		if (results!= NULL){
     			cout << results->funcName << " " << results->difference<<endl;
     		}
@@ -56,12 +56,7 @@ int ExecTimer::StartUp(){
     attr2.mq_msgsize = msgsize;
     this->mq = mq_open(mqName,O_CREAT | O_RDWR , 0, &attr2);
     
-    if (this->mq != -1)
-        cout << "open-mq successful\n";
-    else {
-        cout << "open-mq is not successful";
-        return 0;
-    }
+
 
 	if (mq_unlink(mqName) == -1)
 		return 1;
@@ -71,25 +66,16 @@ int ExecTimer::StartUp(){
     
 	//This will create a thread for execTimer class
     int retVal = pthread_create(&this->newThread,&attr,Run,NULL);
-    if (retVal==0)
-        cout << "Open-thread is succesfull\n";
-    else
-        cout << "Open-thread is not succesfull\n";
     
+
     return 0;
 
 }
 
 int ExecTimer::ShutDown(){
-    if (mq_close(mq) == -1)
-        cout << "mq_closesuccessful\n";
-    else
-        cout << "mq_close is not successful\n";
+	mq_close(mq);
+	pthread_cancel(newThread);
 
-    if(pthread_cancel(newThread) != -1)
-        cout << "thread cancel successful\n";
-    else 
-        cout << "thread cancel is not successful\n";
 
 	return 0;
 }
@@ -111,11 +97,7 @@ void ExecTimer::End(const char * fn){
 	results->difference = (long)endT - beginTime;
 
 	int res = mq_send(mq, reinterpret_cast<char*>(&results), msgsize, 0);
-	if (res == -1) {
-		cout << "mq_send not successful\n";
-	} else {
-		cout << "mq_send successful\n";
-	}
+
 
 }
 

@@ -16,16 +16,17 @@ void FooAnother::wait(){
 void * FooAnother::Run(void * arg){
 
     while(true){
-        //int mq_send(mqd_t __mqdes,
-        //const char *__msg_ptr, size_t __msg_len, unsigned int __msg_prio)
+
     	FooAnother * ptr = (FooAnother *)arg;
-    		//while(true){
+    	int countUp =0 ;
+    		while(countUp < 10){
 
     			ptr->doJobFoo2();
 
     			ptr->doJobFromAnother();
+    			countUp +=1 ;
 
-    		//}
+    		}
     		return NULL;
     }
 }
@@ -33,7 +34,7 @@ void * FooAnother::Run(void * arg){
 
 FooAnother::FooAnother(){
 	this->execTimer2 = ExecTimer::getInstance();
-   // this->execTimer2->StartUp();
+
     int res = pthread_create(&this->threadFoo2,NULL,FooAnother::Run,this);
 
 }
@@ -45,14 +46,21 @@ FooAnother::~FooAnother(){
 }
 void FooAnother::doJobFoo2(){
     execTimer2->Begin();
+    int t=0;
+       for (int i =0 ; i< 1000000;i++){
 
-    sleep(15);
+       	t+= i ;
+     }
     execTimer2->End(__func__);
 
 }
 void FooAnother::doJobFromAnother(){
 	  execTimer2->Begin();
-	    sleep(20);
-	    execTimer2->End(__func__);
+	  int t=0;
+	     for (int i =0 ; i< 1000000;i++){
+
+	     	t+= i ;
+	  }
+	  execTimer2->End(__func__);
 
 }

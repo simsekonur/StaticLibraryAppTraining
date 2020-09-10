@@ -11,8 +11,7 @@ private :
         FooAnother();
         ~FooAnother();
         void doJobFoo2();
-        void createThread();
-        void cancelThread();
+
         void doJobFromAnother();
         static void * Run(void *);
 

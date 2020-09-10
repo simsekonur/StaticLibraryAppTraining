@@ -17,15 +17,17 @@ Foo::Foo(){
 }
 void *Foo::Run(void *arg){
 	Foo * ptr = (Foo *)arg;
-	//while(true){
+	int countUp = 0 ;
+	while(countUp < 10){
 
 		ptr->doJobFoo();
 
 
 		ptr->doJobFromFoo();
+		countUp += 1;
 
 
-	//}
+	}
 	return NULL;
 
 }
@@ -36,15 +38,21 @@ Foo::~Foo(){
 }
 void Foo::doJobFoo(){
     execTimer->Begin();
+    int t=0;
+    for (int i =0 ; i< 1000000;i++){
 
-    sleep(5);
+    	t+= i ;
+    }
     execTimer->End(__func__);
 
 }   
 void Foo::doJobFromFoo(){
 	execTimer->Begin();
+	 int t=0;
+	 for (int i =0 ; i< 1000000;i++){
 
-	sleep(10);
-	    execTimer->End(__func__);
+	    	t+= i ;
+	 }
+	execTimer->End(__func__);
 
 }

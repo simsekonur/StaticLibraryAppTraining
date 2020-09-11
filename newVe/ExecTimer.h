@@ -4,7 +4,11 @@
 #include"ExecResult.h"
 #include<pthread.h>
 #include<mqueue.h>
-
+#include <arpa/inet.h>
+#include<sys/types.h>
+#include<sys/socket.h>
+#include <netdb.h>
+#include <netinet/in.h>
 
 
 class ExecTimer{
@@ -19,6 +23,11 @@ class ExecTimer{
 		static const char* threadName;
 
 		ExecTimer();
+
+		//Variables related to socket
+		static int sockfd ;
+
+		struct sockaddr_in their_addr;
         
 		
     public:

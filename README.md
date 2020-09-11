@@ -8,4 +8,4 @@ The connect method is giving an "connection refussed" error when there is no guy
 
 We are sending the data however there must be someone on the another side who is listening whether the data is coming or not.
 
-I write the client ,now I'm going to switch Windows .As long as server listens the client there will be no problems anput sending the data.
+I write the client ,now I'm going to switch Windows .As long as server listens the client there will be no problems about sending the data.

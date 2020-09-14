@@ -4,8 +4,6 @@
 https://www.youtube.com/watch?v=LtXEMwSG5-8
 
 
-The connect method is giving an "connection refussed" error when there is no guy on the server that is listening the client. 
+In a seperate file(Server.cpp), try to receive the data that the client sent. cout this data not in exact timer but in the server.cpp
 
-We are sending the data however there must be someone on the another side who is listening whether the data is coming or not.
-
-I write the client ,now I'm going to switch Windows .As long as server listens the client there will be no problems about sending the data.
+Then adapt this server.cpp to your interface.

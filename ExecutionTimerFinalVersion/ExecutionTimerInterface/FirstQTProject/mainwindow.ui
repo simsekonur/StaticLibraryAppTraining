@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>20</y>
+      <x>330</x>
+      <y>50</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -34,11 +34,42 @@ font: 75 11pt &quot;Ubuntu Mono&quot;;</string>
    <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
+      <x>50</x>
+      <y>470</y>
+      <width>321</width>
+      <height>81</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
       <x>120</x>
       <y>80</y>
-      <width>321</width>
+      <width>511</width>
       <height>371</height>
      </rect>
+    </property>
+    <property name="columnCount">
+     <number>2</number>
+    </property>
+    <attribute name="horizontalHeaderDefaultSectionSize">
+     <number>170</number>
+    </attribute>
+    <column/>
+    <column/>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>20</y>
+      <width>261</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EXECUTION TIMER</string>
     </property>
    </widget>
   </widget>

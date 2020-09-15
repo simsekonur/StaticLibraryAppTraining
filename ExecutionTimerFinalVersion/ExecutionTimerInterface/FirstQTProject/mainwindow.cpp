@@ -17,11 +17,15 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowTitle("Execution Timer");
     QPixmap bkgnd("/home/onur/Pictures/den.png");
     bkgnd = bkgnd.scaled(this->size(),Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background,bkgnd);
     this->setPalette(palette);
+    QStringList titles;
+    titles << "FUNCTION NAME" << "EXECUTION TIME";
+    ui->tableWidget->setHorizontalHeaderLabels(titles);
 
 
 }
@@ -89,9 +93,8 @@ void MainWindow::on_pushButton_clicked()
         QString p{") "};
 	myExecResult results;
         while ((receive = recv(connfd,(void *)&results,sizeof(results),0) )>0 ){
-         
 
-
+            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
             ui->listWidget->addItem(QString::number(i+1)+p+ results.funcName +space +QString::number(results.difference));
             std::cout << results.funcName << " : " << results.difference << std::endl;
             i++;

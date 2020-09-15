@@ -7,7 +7,7 @@
  #include <errno.h>
 #include <stdlib.h>
 #include "ExecTimer.h"
-#define PORT 3030    /* the port client will be connecting to */
+#define PORT 8081   /* the port client will be connecting to */
 
 using namespace std;
 
@@ -31,15 +31,15 @@ void* ExecTimer::Run(void * arg){
     		if (results!= NULL){
 
 
-    			cout << results->funcName << " " << results->difference<<endl;
-    			int res = send(sockfd,(const void *)&results,sizeof(results),0);
+    			//cout << results->funcName << " " << results->difference<<endl;
+    			int res = send(sockfd,results,sizeof(*results),0);
     			if (res ==-1){
     				cout << errno << endl ;
     				perror("Sending error");
     				cout << "There is something wrong\n";
     			}
     			else {
-    				cout <<"Send is succesfull\n";
+    				cout <<"Socket-Send is succesfull\n";
     			}
     		}
 
@@ -74,17 +74,15 @@ int ExecTimer::StartUp(){
 	//Initialize the struct member
 	their_addr.sin_family=AF_INET;
 	their_addr.sin_port = htons(PORT);
-	their_addr.sin_addr.s_addr= htonl(INADDR_ANY);
-	bzero(&(their_addr.sin_zero), 8);
+	
+	if (connect(sockfd,(struct sockaddr *)&their_addr,sizeof(their_addr)) < 0){
+		cout << "connection failed\n";
+		return -1;
+	}
 
-	//We need to use this struct while connecting another socket
 
-	//Now connect(....)
 
-	int res = connect(sockfd,(struct sockaddr *)&their_addr,sizeof(their_addr));
-
-	cout << "Connect sonucu:" << res << endl ;
-	cout << errno << endl ;
+	
 
 	mq_attr attr2;
     attr2.mq_flags = 0;
@@ -111,7 +109,7 @@ int ExecTimer::StartUp(){
 int ExecTimer::ShutDown(){
 	mq_close(mq);
 	pthread_cancel(newThread);
-	//close(sockfd);
+	close(sockfd);
 
 
 	return 0;

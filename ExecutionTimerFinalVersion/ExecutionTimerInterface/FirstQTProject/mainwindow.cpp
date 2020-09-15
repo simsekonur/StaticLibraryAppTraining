@@ -10,7 +10,7 @@
 #include<unistd.h>
 #include"ExecResult.h"
 #include<iostream>
-#define PORT 8082
+#define PORT 8083
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -83,15 +83,14 @@ void MainWindow::on_pushButton_clicked()
 
 
         //As an alternative,I will try object version
-
+	int receive;
         int i = 0;
         QString space{": "};
         QString p{") "};
-        while (i < 20 ){
-             myExecResult results;
+	myExecResult results;
+        while ((receive = recv(connfd,(void *)&results,sizeof(results),0) )>0 ){
+         
 
-
-            int receive = recv(connfd,(void *)&results,sizeof(results),0);
 
             ui->listWidget->addItem(QString::number(i+1)+p+ results.funcName +space +QString::number(results.difference));
             std::cout << results.funcName << " : " << results.difference << std::endl;

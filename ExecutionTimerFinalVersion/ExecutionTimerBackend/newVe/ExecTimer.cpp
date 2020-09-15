@@ -7,7 +7,7 @@
  #include <errno.h>
 #include <stdlib.h>
 #include "ExecTimer.h"
-#define PORT 8082   /* the port client will be connecting to */
+#define PORT 8083   /* the port client will be connecting to */
 
 using namespace std;
 

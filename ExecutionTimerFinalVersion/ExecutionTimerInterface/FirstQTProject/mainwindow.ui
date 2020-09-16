@@ -17,8 +17,8 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>50</y>
+      <x>230</x>
+      <y>40</y>
       <width>89</width>
       <height>25</height>
      </rect>
@@ -31,30 +31,28 @@ font: 75 11pt &quot;Ubuntu Mono&quot;;</string>
      <string>RECEIVE</string>
     </property>
    </widget>
-   <widget class="QListWidget" name="listWidget">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>470</y>
-      <width>321</width>
-      <height>81</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>80</y>
-      <width>511</width>
-      <height>371</height>
+      <x>170</x>
+      <y>70</y>
+      <width>471</width>
+      <height>481</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(186, 189, 182);
+font: 75 11pt &quot;Ubuntu Mono&quot;;
+</string>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
     </property>
     <property name="columnCount">
      <number>2</number>
     </property>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>170</number>
+     <number>236</number>
     </attribute>
     <column/>
     <column/>
@@ -62,14 +60,35 @@ font: 75 11pt &quot;Ubuntu Mono&quot;;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>310</x>
-      <y>20</y>
-      <width>261</width>
+      <x>340</x>
+      <y>10</y>
+      <width>121</width>
       <height>20</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(252, 233, 79);
+font: 75 11pt &quot;Ubuntu Mono&quot;;</string>
+    </property>
     <property name="text">
      <string>EXECUTION TIMER</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>500</x>
+      <y>40</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(252, 233, 79);
+font: 75 11pt &quot;Ubuntu Mono&quot;;</string>
+    </property>
+    <property name="text">
+     <string>CLEAR</string>
     </property>
    </widget>
   </widget>
@@ -82,12 +101,6 @@ font: 75 11pt &quot;Ubuntu Mono&quot;;</string>
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuExecution_Timer">
-    <property name="title">
-     <string>Execution Timer</string>
-    </property>
-   </widget>
-   <addaction name="menuExecution_Timer"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

@@ -8,17 +8,18 @@
 
 int main(void){
 
-
 	ExecTimer * ptr = ExecTimer::getInstance();
+	// We are creating execTimer's thread.
+	// Run function in ExecTimer will start to wait for receiving a message
 	ptr->StartUp();
 
+	//We are not calling any function of foo 
+	//Foo constructor will create a thread for its class 
+	// where all of the functions inside this class can be invoked.
 	Foo foo ;
-	/*foo.doJobFoo();
-	foo.doJobFromFoo();*/
-
 	FooAnother fooAnother;
 
-
+	
 	foo.wait();
 	fooAnother.wait();
 

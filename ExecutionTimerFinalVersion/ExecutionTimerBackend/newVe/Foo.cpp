@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 using namespace std;
-//mqd_t ExecTimer::mq = (mqd_t)-1;
+
 
 void Foo::wait(){
 	pthread_join(this->threadFoo,NULL);

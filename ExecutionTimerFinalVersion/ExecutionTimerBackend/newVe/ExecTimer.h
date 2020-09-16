@@ -17,12 +17,11 @@ class ExecTimer{
         pthread_t newThread; 
         pthread_attr_t attr;
 		static mqd_t mq;
-		static size_t size;
-
+	
 		static const char* mqName;
-		static const char* threadName;
-
-		ExecTimer();
+		
+		ExecTimer();// we intentionally don't have a constructor
+		
 
 		//Variables related to socket
 		static int sockfd ;
@@ -40,7 +39,7 @@ class ExecTimer{
 		void Begin();
 
 		void End(const char * fn);
-		void Wait();
+		
         static void* Run(void * arg);
         static ExecTimer * getInstance();
 };

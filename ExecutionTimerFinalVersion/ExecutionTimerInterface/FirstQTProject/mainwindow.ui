@@ -60,7 +60,7 @@ font: 75 11pt &quot;Ubuntu Mono&quot;;
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>350</x>
       <y>10</y>
       <width>121</width>
       <height>20</height>

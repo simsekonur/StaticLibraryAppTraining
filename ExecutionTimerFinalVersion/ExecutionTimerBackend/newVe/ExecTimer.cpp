@@ -1,49 +1,38 @@
-// cpp
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <iostream>
 #include <string.h>
- #include <errno.h>
 #include <stdlib.h>
 #include "ExecTimer.h"
 #define PORT 8083   /* the port client will be connecting to */
 
 using namespace std;
 
+
+//There is no global variable in this code
+//All of the static variables defined below are declared in the header file of class
 mqd_t ExecTimer::mq = (mqd_t)-1;
 const char*ExecTimer::mqName = "/mqNamee2";
-const char*ExecTimer::threadName = "threadName";
 int ExecTimer::sockfd = -1;
 
-int msgsize = sizeof(myExecResult*);
 
 
+//When creating the thread of execTimer, we are using this function.
 void* ExecTimer::Run(void * arg){
     while(true){
         myExecResult * results = NULL;
         unsigned int msg_prio;
-        int res = mq_receive(mq,reinterpret_cast<char *>(&results),msgsize,&msg_prio);
-    	if (res == -1) {
+		int res ;
+		
+        int resMq = mq_receive(mq,reinterpret_cast<char *>(&results),sizeof(myExecResult*),&msg_prio);
+    	if (resMq == -1 || results==NULL) {
+			perror("mq-receive error");
+    	} 
+		else { // If mq_receive is succcessful
 
-    	} else {
-
-    		if (results!= NULL){
-
-
-    			//cout << results->funcName << " " << results->difference<<endl;
-    			int res = send(sockfd,results,sizeof(*results),0);
-    			if (res ==-1){
-    				cout << errno << endl ;
-    				perror("Sending error");
-    				cout << "There is something wrong\n";
-    			}
-    			else {
-    				cout <<"Socket-Send is succesfull\n";
-    			}
-    		}
-
-
+    		if ((res = send(sockfd,results,sizeof(*results),0)) ==-1)
+    			perror("Sending error");
+    		
     	}
     }
 }
@@ -51,6 +40,8 @@ void* ExecTimer::Run(void * arg){
 
 ExecTimer::ExecTimer(){}
 
+//This method is in here because we don't want to create a seperate execTimer
+//object in seperate class 
 ExecTimer * ExecTimer::getInstance(){
 
 	static ExecTimer et;
@@ -71,23 +62,20 @@ int ExecTimer::StartUp(){
 		exit(1);
 	}
 
-	//Initialize the struct member
+	//Initialize the struct member for socket 
 	their_addr.sin_family=AF_INET;
 	their_addr.sin_port = htons(PORT);
 	
 	if (connect(sockfd,(struct sockaddr *)&their_addr,sizeof(their_addr)) < 0){
-		cout << "connection failed\n";
+		perror("connect-socket");
 		return -1;
 	}
-
-
-
+	//Initialize the struct member for message queue
 	
-
 	mq_attr attr2;
     attr2.mq_flags = 0;
     attr2.mq_maxmsg = 10;
-    attr2.mq_msgsize = msgsize;
+    attr2.mq_msgsize = sizeof(myExecResult*);
     this->mq = mq_open(mqName,O_CREAT | O_RDWR , 0, &attr2);
     
 
@@ -124,21 +112,17 @@ void ExecTimer::Begin(){
 }
 
 void ExecTimer::End(const char * fn){
+	
 	myExecResult * results = new myExecResult();
-	//strcpy(results->funcName,"default");
-	//results->difference = 2;
+	
 	clock_t endT = clock();
 	strcpy(results->funcName,fn);
 	results->difference = (long)endT - beginTime;
 
-	int res = mq_send(mq, reinterpret_cast<char*>(&results), msgsize, 0);
+	int res = mq_send(mq, reinterpret_cast<char*>(&results), sizeof(myExecResult*), 0);
 
 
 
 }
 
-void ExecTimer::Wait(){
-	if (pthread_join(newThread, 0) != 0) {
-		return;
-	}
-}
+
